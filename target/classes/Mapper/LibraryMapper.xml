@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyx.dao.LibraryMapper" >
+  <resultMap id="BaseResultMap" type="com.zyx.model.Library" >
+    <id column="recod" property="recod" jdbcType="INTEGER" />
+    <result column="btime" property="btime" jdbcType="DATE" />
+    <result column="rtime" property="rtime" jdbcType="DATE" />
+    <result column="bdays" property="bdays" jdbcType="INTEGER" />
+    <result column="reader_id" property="readerId" jdbcType="INTEGER" />
+    <result column="book_id" property="bookId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    recod, btime, rtime, bdays, reader_id, book_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zyx.model.LibraryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from library
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from library
+    where recod = #{recod,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from library
+    where recod = #{recod,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zyx.model.LibraryExample" >
+    delete from library
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zyx.model.Library" >
+    insert into library (recod, btime, rtime, 
+      bdays, reader_id, book_id
+      )
+    values (#{recod,jdbcType=INTEGER}, #{btime,jdbcType=DATE}, #{rtime,jdbcType=DATE}, 
+      #{bdays,jdbcType=INTEGER}, #{readerId,jdbcType=INTEGER}, #{bookId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyx.model.Library" >
+    insert into library
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recod != null" >
+        recod,
+      </if>
+      <if test="btime != null" >
+        btime,
+      </if>
+      <if test="rtime != null" >
+        rtime,
+      </if>
+      <if test="bdays != null" >
+        bdays,
+      </if>
+      <if test="readerId != null" >
+        reader_id,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recod != null" >
+        #{recod,jdbcType=INTEGER},
+      </if>
+      <if test="btime != null" >
+        #{btime,jdbcType=DATE},
+      </if>
+      <if test="rtime != null" >
+        #{rtime,jdbcType=DATE},
+      </if>
+      <if test="bdays != null" >
+        #{bdays,jdbcType=INTEGER},
+      </if>
+      <if test="readerId != null" >
+        #{readerId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zyx.model.LibraryExample" resultType="java.lang.Integer" >
+    select count(*) from library
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update library
+    <set >
+      <if test="record.recod != null" >
+        recod = #{record.recod,jdbcType=INTEGER},
+      </if>
+      <if test="record.btime != null" >
+        btime = #{record.btime,jdbcType=DATE},
+      </if>
+      <if test="record.rtime != null" >
+        rtime = #{record.rtime,jdbcType=DATE},
+      </if>
+      <if test="record.bdays != null" >
+        bdays = #{record.bdays,jdbcType=INTEGER},
+      </if>
+      <if test="record.readerId != null" >
+        reader_id = #{record.readerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookId != null" >
+        book_id = #{record.bookId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update library
+    set recod = #{record.recod,jdbcType=INTEGER},
+      btime = #{record.btime,jdbcType=DATE},
+      rtime = #{record.rtime,jdbcType=DATE},
+      bdays = #{record.bdays,jdbcType=INTEGER},
+      reader_id = #{record.readerId,jdbcType=INTEGER},
+      book_id = #{record.bookId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyx.model.Library" >
+    update library
+    <set >
+      <if test="btime != null" >
+        btime = #{btime,jdbcType=DATE},
+      </if>
+      <if test="rtime != null" >
+        rtime = #{rtime,jdbcType=DATE},
+      </if>
+      <if test="bdays != null" >
+        bdays = #{bdays,jdbcType=INTEGER},
+      </if>
+      <if test="readerId != null" >
+        reader_id = #{readerId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where recod = #{recod,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyx.model.Library" >
+    update library
+    set btime = #{btime,jdbcType=DATE},
+      rtime = #{rtime,jdbcType=DATE},
+      bdays = #{bdays,jdbcType=INTEGER},
+      reader_id = #{readerId,jdbcType=INTEGER},
+      book_id = #{bookId,jdbcType=VARCHAR}
+    where recod = #{recod,jdbcType=INTEGER}
+  </update>
+</mapper>
