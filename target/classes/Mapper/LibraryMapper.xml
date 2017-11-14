@@ -8,6 +8,7 @@
     <result column="bdays" property="bdays" jdbcType="INTEGER" />
     <result column="reader_id" property="readerId" jdbcType="INTEGER" />
     <result column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    recod, btime, rtime, bdays, reader_id, book_id
+    recod, btime, rtime, bdays, reader_id, book_id, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zyx.model.LibraryExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.zyx.model.Library" >
     insert into library (recod, btime, rtime, 
-      bdays, reader_id, book_id
-      )
+      bdays, reader_id, book_id, 
+      status)
     values (#{recod,jdbcType=INTEGER}, #{btime,jdbcType=DATE}, #{rtime,jdbcType=DATE}, 
-      #{bdays,jdbcType=INTEGER}, #{readerId,jdbcType=INTEGER}, #{bookId,jdbcType=VARCHAR}
-      )
+      #{bdays,jdbcType=INTEGER}, #{readerId,jdbcType=INTEGER}, #{bookId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zyx.model.Library" >
     insert into library
@@ -129,6 +130,9 @@
       <if test="bookId != null" >
         book_id,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="recod != null" >
@@ -148,6 +152,9 @@
       </if>
       <if test="bookId != null" >
         #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.bookId != null" >
         book_id = #{record.bookId,jdbcType=VARCHAR},
       </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       rtime = #{record.rtime,jdbcType=DATE},
       bdays = #{record.bdays,jdbcType=INTEGER},
       reader_id = #{record.readerId,jdbcType=INTEGER},
-      book_id = #{record.bookId,jdbcType=VARCHAR}
+      book_id = #{record.bookId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="bookId != null" >
         book_id = #{bookId,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
     </set>
     where recod = #{recod,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,15 @@
       rtime = #{rtime,jdbcType=DATE},
       bdays = #{bdays,jdbcType=INTEGER},
       reader_id = #{readerId,jdbcType=INTEGER},
-      book_id = #{bookId,jdbcType=VARCHAR}
+      book_id = #{bookId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
     where recod = #{recod,jdbcType=INTEGER}
   </update>
+  <update id="updateBdays" parameterType="Integer" >
+    UPDATE library set bdays =datediff(rtime,btime) WHERE  recod =#{recod}
+  </update>
+  <select id="getNoReturn" resultType="com.zyx.model.Reader">
+    SELECT id,`name`,sex,grade,dept,authority,password FROM reader a,library b
+    WHERE a.id=b.reader_id AND b.status=0
+  </select>
 </mapper>

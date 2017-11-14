@@ -27,4 +27,5 @@ public interface ReaderMapper {
     int updateByPrimaryKeySelective(Reader record);
 
     int updateByPrimaryKey(Reader record);
+
 }

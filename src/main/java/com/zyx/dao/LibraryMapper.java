@@ -3,6 +3,8 @@ package com.zyx.dao;
 import com.zyx.model.Library;
 import com.zyx.model.LibraryExample;
 import java.util.List;
+
+import com.zyx.model.Reader;
 import org.apache.ibatis.annotations.Param;
 
 public interface LibraryMapper {
@@ -27,4 +29,8 @@ public interface LibraryMapper {
     int updateByPrimaryKeySelective(Library record);
 
     int updateByPrimaryKey(Library record);
+
+    int updateBdays(Integer record);
+
+    List<Reader> getNoReturn();
 }

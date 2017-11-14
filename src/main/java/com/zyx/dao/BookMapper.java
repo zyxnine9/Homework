@@ -33,4 +33,8 @@ public interface BookMapper {
     int updateByPrimaryKeyWithBLOBs(Book record);
 
     int updateByPrimaryKey(Book record);
+
+    int reduceNumber(String Id);
+
+    int increaseNumber(String Id);
 }

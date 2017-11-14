@@ -9,14 +9,6 @@ public class Book {
 
     private String name;
 
-    private String writer;
-
-    private Date time;
-
-    private String press;
-
-    private String bkcontext;
-
     @Override
     public String toString() {
         return "Book{" +
@@ -29,6 +21,14 @@ public class Book {
                 ", bkcontext='" + bkcontext + '\'' +
                 '}';
     }
+
+    private String writer;
+
+    private Date time;
+
+    private String press;
+
+    private String bkcontext;
 
     public String getId() {
         return id;

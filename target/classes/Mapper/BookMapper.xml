@@ -278,10 +278,20 @@
   <update id="updateByPrimaryKey" parameterType="com.zyx.model.Book" >
     update book
     set number = #{number,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
       writer = #{writer,jdbcType=VARCHAR},
-      time = #{time,jdbcType=DATE},
+      `time`` = #{time,jdbcType=DATE},
       press = #{press,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="reduceNumber" parameterType="String" >
+    UPDATE book
+    SET `number` =`number`-1
+    WHERE id=#{id,jdbcType=VARCHAR} AND number>0
+  </update>
+  <update id="increaseNumber" parameterType="String">
+    UPDATE book
+     SET `number` =`number`+1
+    WHERE id=#{id,jdbcType=VARCHAR}
   </update>
 </mapper>

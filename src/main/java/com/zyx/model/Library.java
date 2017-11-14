@@ -9,11 +9,26 @@ public class Library {
 
     private Date rtime;
 
+    @Override
+    public String toString() {
+        return "Library{" +
+                "recod=" + recod +
+                ", btime=" + btime +
+                ", rtime=" + rtime +
+                ", bdays=" + bdays +
+                ", readerId=" + readerId +
+                ", bookId='" + bookId + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
     private Integer bdays;
 
     private Integer readerId;
 
     private String bookId;
+
+    private Integer status;
 
     public Integer getRecod() {
         return recod;
@@ -61,5 +76,13 @@ public class Library {
 
     public void setBookId(String bookId) {
         this.bookId = bookId == null ? null : bookId.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

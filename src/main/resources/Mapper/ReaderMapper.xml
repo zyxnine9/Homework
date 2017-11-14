@@ -7,6 +7,8 @@
     <result column="sex" property="sex" jdbcType="CHAR" />
     <result column="grade" property="grade" jdbcType="VARCHAR" />
     <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="authority" property="authority" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, sex, grade, dept
+    id, name, sex, grade, dept, authority, password
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zyx.model.ReaderExample" >
     select
@@ -101,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.zyx.model.Reader" >
     insert into reader (id, name, sex, grade, 
-      dept)
+      dept, authority, password
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{grade,jdbcType=VARCHAR}, 
-      #{dept,jdbcType=VARCHAR})
+      #{dept,jdbcType=VARCHAR}, #{authority,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zyx.model.Reader" >
     insert into reader
@@ -123,6 +127,12 @@
       <if test="dept != null" >
         dept,
       </if>
+      <if test="authority != null" >
+        authority,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,6 +149,12 @@
       </if>
       <if test="dept != null" >
         #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="authority != null" >
+        #{authority,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +182,12 @@
       <if test="record.dept != null" >
         dept = #{record.dept,jdbcType=VARCHAR},
       </if>
+      <if test="record.authority != null" >
+        authority = #{record.authority,jdbcType=INTEGER},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +199,9 @@
       name = #{record.name,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=CHAR},
       grade = #{record.grade,jdbcType=VARCHAR},
-      dept = #{record.dept,jdbcType=VARCHAR}
+      dept = #{record.dept,jdbcType=VARCHAR},
+      authority = #{record.authority,jdbcType=INTEGER},
+      password = #{record.password,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +221,12 @@
       <if test="dept != null" >
         dept = #{dept,jdbcType=VARCHAR},
       </if>
+      <if test="authority != null" >
+        authority = #{authority,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +235,9 @@
     set name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=CHAR},
       grade = #{grade,jdbcType=VARCHAR},
-      dept = #{dept,jdbcType=VARCHAR}
+      dept = #{dept,jdbcType=VARCHAR},
+      authority = #{authority,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

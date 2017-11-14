@@ -9,18 +9,11 @@ public class Reader {
 
     private String grade;
 
-    @Override
-    public String toString() {
-        return "Reader{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", grade='" + grade + '\'' +
-                ", dept='" + dept + '\'' +
-                '}';
-    }
-
     private String dept;
+
+    private Integer authority;
+
+    private String password;
 
     public Integer getId() {
         return id;
@@ -60,5 +53,34 @@ public class Reader {
 
     public void setDept(String dept) {
         this.dept = dept == null ? null : dept.trim();
+    }
+
+    public Integer getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Integer authority) {
+        this.authority = authority;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String toString() {
+        return "Reader{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", grade='" + grade + '\'' +
+                ", dept='" + dept + '\'' +
+                ", authority=" + authority +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 }
