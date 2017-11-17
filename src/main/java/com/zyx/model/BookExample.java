@@ -531,6 +531,66 @@ public class BookExample {
             addCriterion("press not between", value1, value2, "press");
             return (Criteria) this;
         }
+
+        public Criteria andTotalIsNull() {
+            addCriterion("total is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalIsNotNull() {
+            addCriterion("total is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalEqualTo(Integer value) {
+            addCriterion("total =", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalNotEqualTo(Integer value) {
+            addCriterion("total <>", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalGreaterThan(Integer value) {
+            addCriterion("total >", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalGreaterThanOrEqualTo(Integer value) {
+            addCriterion("total >=", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalLessThan(Integer value) {
+            addCriterion("total <", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalLessThanOrEqualTo(Integer value) {
+            addCriterion("total <=", value, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalIn(List<Integer> values) {
+            addCriterion("total in", values, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalNotIn(List<Integer> values) {
+            addCriterion("total not in", values, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalBetween(Integer value1, Integer value2) {
+            addCriterion("total between", value1, value2, "total");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalNotBetween(Integer value1, Integer value2) {
+            addCriterion("total not between", value1, value2, "total");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

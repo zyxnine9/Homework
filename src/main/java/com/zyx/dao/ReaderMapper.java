@@ -26,6 +26,8 @@ public interface ReaderMapper {
 
     int updateByPrimaryKeySelective(Reader record);
 
+//    int selectByIdAndPassword(@Param("id")Integer id, @Param("password")String password);
+
     int updateByPrimaryKey(Reader record);
 
 }

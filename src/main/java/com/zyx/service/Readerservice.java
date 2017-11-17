@@ -17,4 +17,6 @@ public interface Readerservice {
     int deleteReader(Integer Id);
 
     int updateReader(Reader reader);
+
+    List<Reader> findReaders(Reader reader);
 }

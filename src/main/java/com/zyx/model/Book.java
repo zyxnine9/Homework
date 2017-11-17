@@ -9,24 +9,13 @@ public class Book {
 
     private String name;
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id='" + id + '\'' +
-                ", number=" + number +
-                ", name='" + name + '\'' +
-                ", writer='" + writer + '\'' +
-                ", time=" + time +
-                ", press='" + press + '\'' +
-                ", bkcontext='" + bkcontext + '\'' +
-                '}';
-    }
-
     private String writer;
 
     private Date time;
 
     private String press;
+
+    private Integer total;
 
     private String bkcontext;
 
@@ -76,6 +65,28 @@ public class Book {
 
     public void setPress(String press) {
         this.press = press == null ? null : press.trim();
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", number=" + number +
+                ", name='" + name + '\'' +
+                ", writer='" + writer + '\'' +
+                ", time=" + time +
+                ", press='" + press + '\'' +
+                ", total=" + total +
+                ", bkcontext='" + bkcontext + '\'' +
+                '}';
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     public String getBkcontext() {

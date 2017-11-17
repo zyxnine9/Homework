@@ -247,4 +247,5 @@
     SELECT id,`name`,sex,grade,dept,authority,password FROM reader a,library b
     WHERE a.id=b.reader_id AND b.status=0
   </select>
+
 </mapper>

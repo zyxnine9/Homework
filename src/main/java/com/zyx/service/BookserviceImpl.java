@@ -2,18 +2,24 @@ package com.zyx.service;
 
 import com.zyx.dao.BookMapper;
 import com.zyx.dao.LibraryMapper;
+import com.zyx.dao.ReaderMapper;
+import com.zyx.exception.BRexception;
 import com.zyx.exception.NobkException;
 import com.zyx.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class BookserviceImpl implements Bookservice {
     @Autowired
     BookMapper bookMapper;
     @Autowired
     LibraryMapper libraryMapper;
+    @Autowired
+    ReaderMapper readerMapper;
 
     BookExample bookExample;
 
@@ -53,32 +59,55 @@ public class BookserviceImpl implements Bookservice {
         return bookMapper.updateByExampleSelective(book,bookExample);
     }
 
-    public int borrowBook(Book book, Reader reader) {
-        Library library =new Library();
-        library.setBookId(book.getId());
-        library.setReaderId(reader.getId());
+    public int borrowBook(Library library) {
         library.setBtime(new Date());
         library.setStatus(0);
         try {
-            int number=bookMapper.reduceNumber(book.getId());
+            Reader reader=readerMapper.selectByPrimaryKey(library.getReaderId());
+            Book book=bookMapper.selectByPrimaryKey(library.getBookId());
+            if(reader==null){
+                throw new BRexception("没有这个读者");
+            }
+            if (book==null){
+                throw  new NobkException("馆内没有这本书");
+            }
+            int number=bookMapper.reduceNumber(library.getBookId());
             if(number<=0){
                 throw new NobkException("该书没有库存了");
             }else {
-                int insert =libraryMapper.insert(library);
+                libraryMapper.insert(library);
+                return 1;
             }
-        }catch (NobkException e1){
+        }catch (BRexception e){
+            throw e;
+        } catch (NobkException e1){
             throw e1;
+        }catch (RuntimeException e2){
+            throw e2;
         }
-        return 1;
     }
 
     public int returnBook(Library library) {
-        library.setRtime(new Date());
-        library.setStatus(1);
-        libraryMapper.updateByPrimaryKeySelective(library);
-        libraryMapper.updateBdays(library.getRecod());
-        bookMapper.increaseNumber(library.getBookId());
-        return 1;
+        try {
+            LibraryExample libraryExample = new LibraryExample();
+            LibraryExample.Criteria criteria = libraryExample.createCriteria();
+            criteria.andReaderIdEqualTo(library.getReaderId());
+            criteria.andBookIdEqualTo(library.getBookId());
+            List<Library> list = libraryMapper.selectByExample(libraryExample);
+            if (list.size() == 0)
+                throw new BRexception("没有借阅记录");
+            else {
+                library.setRtime(new Date());
+                library.setStatus(1);
+                library.setRecod(list.get(0).getRecod());
+                libraryMapper.updateByPrimaryKeySelective(library);
+                libraryMapper.updateBdays(library.getRecod());
+                bookMapper.increaseNumber(library.getBookId());
+                return 1;
+            }
+        } catch (BRexception e){
+            throw e;
+        }
     }
 
 }

@@ -4,7 +4,7 @@ public class NobkException extends RuntimeException{
     public NobkException(String messae){
         super(messae);
     }
-    public NobkException(String message,Throwable cause){
-        super(message,cause);
+    public NobkException(String message,Throwable cause) {
+        super(message, cause);
     }
 }

@@ -9,19 +9,6 @@ public class Library {
 
     private Date rtime;
 
-    @Override
-    public String toString() {
-        return "Library{" +
-                "recod=" + recod +
-                ", btime=" + btime +
-                ", rtime=" + rtime +
-                ", bdays=" + bdays +
-                ", readerId=" + readerId +
-                ", bookId='" + bookId + '\'' +
-                ", status=" + status +
-                '}';
-    }
-
     private Integer bdays;
 
     private Integer readerId;

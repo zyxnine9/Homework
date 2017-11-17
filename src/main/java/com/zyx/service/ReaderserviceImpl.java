@@ -5,16 +5,16 @@ import com.zyx.dao.ReaderMapper;
 import com.zyx.model.Reader;
 import com.zyx.model.ReaderExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReaderserviceImpl implements Readerservice{
     @Autowired
     ReaderMapper readerMapper;
     @Autowired
     LibraryMapper libraryMapper;
-
-    ReaderExample readerExample;
 
     public Reader getByName(String name) {
         return null;
@@ -25,6 +25,7 @@ public class ReaderserviceImpl implements Readerservice{
     }
 
     public List<Reader> getAll() {
+        ReaderExample readerExample =new ReaderExample();
         ReaderExample.Criteria criteria = readerExample.createCriteria();
         return readerMapper.selectByExample(readerExample);
     }
@@ -44,6 +45,27 @@ public class ReaderserviceImpl implements Readerservice{
     }
 
     public int updateReader(Reader reader) {
-        return readerMapper.updateByExampleSelective(reader);
+        ReaderExample readerExample = new ReaderExample();
+        ReaderExample.Criteria criteria=readerExample.createCriteria();
+        criteria.andIdEqualTo(reader.getId());
+        return readerMapper.updateByExampleSelective(reader,readerExample);
     }
+
+    public List<Reader> findReaders(Reader reader){
+        ReaderExample readerExample = new ReaderExample();
+        ReaderExample.Criteria criteria=readerExample.createCriteria();
+        if (reader.getId()!=null)
+            criteria.andIdEqualTo(reader.getId());
+        if (reader.getName()!=null&&reader.getName().trim().length()!=0)
+            criteria.andNameLike("%"+reader.getName()+"%");
+        if (reader.getSex()!=null&&reader.getSex().trim().length()!=0)
+            criteria.andSexEqualTo(reader.getSex());
+        if (reader.getDept()!=null&&reader.getDept().trim().length()!=0)
+            criteria.andDeptLike("%"+reader.getDept()+"%");
+        if (reader.getGrade()!=null&&reader.getGrade().trim().length()!=0)
+            criteria.andGradeLike("%"+reader.getGrade()+"%");
+
+        return readerMapper.selectByExample(readerExample);
+        }
 }
+

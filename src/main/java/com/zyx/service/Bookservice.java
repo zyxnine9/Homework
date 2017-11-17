@@ -19,7 +19,7 @@ public interface Bookservice {
 
     int updateBook(Book book);
 
-    int borrowBook(Book book, Reader reader);
+    int borrowBook(Library library);
 
     int returnBook(Library library);
 }
