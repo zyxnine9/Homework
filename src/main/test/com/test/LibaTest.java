@@ -2,14 +2,18 @@ package com.test;
 
 import com.zyx.dao.LibraryMapper;
 import com.zyx.model.Library;
+import com.zyx.service.Libraryservice;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 public class LibaTest extends BaseTest {
     @Autowired
     LibraryMapper libraryMapper;
+    @Autowired
+    Libraryservice libraryservice;
 
     @Test
     public void iii(){
@@ -27,5 +31,17 @@ public class LibaTest extends BaseTest {
         libraryMapper.updateBdays(4);
     }
 
+    @Test
+    public void dzz(){
+        List<Library> fist=libraryservice.showAll();
+        for (int i = 0; i < fist.size(); i++) {
+            System.out.println(fist.get(i));
+        }
+        System.out.println();
+        List<Library> second = libraryservice.selectByReaderId(20150001);
+        for (int i = 0; i < second.size(); i++) {
+            System.out.println(second.get(i));
+        }
+    }
 }
 

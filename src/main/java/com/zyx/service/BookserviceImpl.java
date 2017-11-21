@@ -5,6 +5,7 @@ import com.zyx.dao.LibraryMapper;
 import com.zyx.dao.ReaderMapper;
 import com.zyx.exception.BRexception;
 import com.zyx.exception.NobkException;
+import com.zyx.exception.SuccesException;
 import com.zyx.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,14 @@ public class BookserviceImpl implements Bookservice {
     }
 
     public int deleteBookById(String Id) {
-        return bookMapper.deleteByPrimaryKey(Id);
+
+        //检查书是否外借
+        int total=bookMapper.selectByPrimaryKey(Id).getTotal();
+        int inLibrary =bookMapper.selectByPrimaryKey(Id).getNumber();
+        if (total==inLibrary)
+            return bookMapper.deleteByPrimaryKey(Id);
+        else
+            return -1;
     }
 
     public int addBook(Book book) {
@@ -63,6 +71,20 @@ public class BookserviceImpl implements Bookservice {
         library.setBtime(new Date());
         library.setStatus(0);
         try {
+            LibraryExample libraryExample =new LibraryExample();
+            LibraryExample.Criteria criteria =libraryExample.createCriteria();
+            criteria.andBookIdEqualTo(library.getBookId());
+            criteria.andReaderIdEqualTo(library.getReaderId());
+            List<Library> list=libraryMapper.selectByExample(libraryExample);
+            if (list!=null){
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getBdays()!=null){
+                        if (list.get(i).getBdays()>30)
+                            throw new BRexception("有超期未还图书，不允许借书");
+                    }
+
+                }
+            }
             Reader reader=readerMapper.selectByPrimaryKey(library.getReaderId());
             Book book=bookMapper.selectByPrimaryKey(library.getBookId());
             if(reader==null){
@@ -103,9 +125,13 @@ public class BookserviceImpl implements Bookservice {
                 libraryMapper.updateByPrimaryKeySelective(library);
                 libraryMapper.updateBdays(library.getRecod());
                 bookMapper.increaseNumber(library.getBookId());
+                int days=libraryMapper.selectByPrimaryKey(library.getRecod()).getBdays();
+                if(days>30)
+                    throw new SuccesException("借书时间超过30天,超期"
+                    +(days-30)+"天");
                 return 1;
             }
-        } catch (BRexception e){
+        } catch (SuccesException e){
             throw e;
         }
     }

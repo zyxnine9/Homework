@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>没有借阅记录</title>
+    <title>失败</title>
 </head>
 <body>
-<h1>没有借阅记录</h1>
+<h1>操作失败，${error}</h1>
 </body>
 </html>

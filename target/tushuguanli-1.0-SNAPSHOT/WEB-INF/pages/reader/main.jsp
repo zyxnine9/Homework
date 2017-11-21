@@ -49,22 +49,51 @@
             <div  class="page-header">
                 <h1>其他功能</h1>
             </div>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <p>
                 <a href="reader/main/borrow"
                    type="button" class="btn btn-lg btn-primary">借阅书籍</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="/reader/main/return"
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="reader/main/return"
                    type="button" class="btn btn-lg btn-success">归还书籍</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="reader/main/record"
-                   type="button" class="btn btn-lg btn-info">借阅记录</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href=""
-                   type="button" class="btn btn-lg btn-danger">管理员操作</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <hr>
+                <%--<a href="reader/main/record"--%>
+                   <%--type="button" class="btn btn-lg btn-info">借阅记录</a>--%>
+                <br>
+            <form action="reader/main/record" method="post" commandName="reader" role="form">
+                <div class="form-group">
+                    <label for="readerId">学号:</label>
+                    <input type="text" class="form-control" id="readerId" name="id" placeholder="请输入学号"
+                           value="${reader.id}"required />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-info">借阅记录</button>
+                </div>
+            </form>
+             <hr>
+                <%--<a href=""--%>
+                   <%--type="button" class="btn btn-lg btn-danger">管理员操作</a>--%>
+                <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <form action="reader/main/admin" method="post" commandName="admin" role="form">
+                <div class="form-group">
+                    <label for="adminId">管理员ID:</label>
+                    <input type="text" class="form-control" id="adminId" name="id" placeholder="请输入管理员ID"
+                           value="${admin.id}"required />
+                    <label for="adminKey">密码:</label>
+                    <input type="text" class="form-control" id="adminKey" name="password" placeholder="请输入管理员密码"
+                           value="${admin.id}"required />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-danger">管理员操作</button>
+                </div>
+            </form>
             </p>
             </div>
         </div>
+
 
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>

@@ -72,4 +72,17 @@ public class Library {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "recod=" + recod +
+                ", btime=" + btime +
+                ", rtime=" + rtime +
+                ", bdays=" + bdays +
+                ", readerId=" + readerId +
+                ", bookId='" + bookId + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
