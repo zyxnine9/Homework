@@ -19,4 +19,6 @@ public interface Readerservice {
     int updateReader(Reader reader);
 
     List<Reader> findReaders(Reader reader);
+
+    Reader getUserByIdAndKey(Integer id,String key);
 }

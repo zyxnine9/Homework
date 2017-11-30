@@ -64,8 +64,11 @@ public class ReaderserviceImpl implements Readerservice{
             criteria.andDeptLike("%"+reader.getDept()+"%");
         if (reader.getGrade()!=null&&reader.getGrade().trim().length()!=0)
             criteria.andGradeLike("%"+reader.getGrade()+"%");
-
         return readerMapper.selectByExample(readerExample);
         }
+
+    public Reader getUserByIdAndKey(Integer id, String key) {
+        return readerMapper.login(id,key);
+    }
 }
 

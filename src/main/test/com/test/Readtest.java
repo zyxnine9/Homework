@@ -4,6 +4,7 @@ import com.zyx.dao.LibraryMapper;
 import com.zyx.dao.ReaderMapper;
 import com.zyx.model.Reader;
 import com.zyx.model.ReaderExample;
+import com.zyx.service.Readerservice;
 import com.zyx.service.ReaderserviceImpl;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class Readtest extends BaseTest {
     @Autowired
     LibraryMapper libraryMapper;
     @Autowired
-    ReaderserviceImpl a;
+    Readerservice readerservice;
 
     @Test
     public void ii(){
@@ -34,10 +35,27 @@ public class Readtest extends BaseTest {
 //        reader.setSex("女");
         ReaderExample example = new ReaderExample();
         ReaderExample.Criteria criteria=example.createCriteria();
-        List<Reader> readers=a.findReaders(reader);
+        List<Reader> readers=readerservice.findReaders(reader);
         for (int i = 0; i <readers.size() ; i++) {
             System.out.println(readers.get(i));
         }
+    }
+    @Test
+    public void fff(){
+        Reader reader =new Reader();
+        reader.setId(20150001);
+        reader.setPassword("111111");
+        Reader get_reader =readerservice.getUserByIdAndKey(reader.getId(),reader.getPassword());
+        System.out.println(get_reader);
+    }
+    @Test
+    public void update(){
+        ReaderExample readerExample = new ReaderExample();
+        ReaderExample.Criteria criteria = readerExample.createCriteria();
+        criteria.andIdEqualTo(20150002);
+        Reader reader = new Reader();
+        reader.setName("菲尔德");
+        readerMapper.updateByExampleSelective(reader,readerExample);
     }
 
 }

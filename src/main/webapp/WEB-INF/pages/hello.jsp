@@ -1,56 +1,69 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html lang="zh-CN">
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>登陆</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
-
-<body>
-
+<body style="background-color: #FFFFFF">
 <div class="container">
+    <div class="row text-center " style="padding-top:100px;">
+        <h1>图书管理系统</h1>
+    </div>
+    <div class="row ">
 
-    <form class="form-signin" style="width: 60%"
-          action="reader/main" method="GET" role="form">
-        <h2 class="form-signin-heading">图书管理系统</h2>
-        <br>
-        <input type="text" id="inputEmail" class="form-control" placeholder="请输入学号"
-                required>
-        <input type="password" id="inputPassword" class="form-control" placeholder="请输入密码"
-                required>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me">记住我
-            </label>
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+
+            <div class="panel-body">
+                <form role="form" action="/login" command="reader" method="post">
+                    <hr />
+                    <h5>Enter Details to Login</h5>
+                    <br />
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
+                        <input type="text" class="form-control" name="id"
+                               onkeyup="value=value.replace(/\D/g,'')"
+                               placeholder="Your Username " required />
+                    </div>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                        <input type="password" required
+                               name="password" class="form-control"  placeholder="Your Password" />
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" /> Remember me
+                        </label>
+                        <span class="pull-right">
+
+                                            </span>
+                    </div>
+
+                    <button
+                       type="submit" class="btn btn-primary">Login Now</button>
+                    <hr />
+                    ${error}
+                </form>
+            </div>
+
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+
+
+    </div>
+</div>
+
+</body>
+</html>
+
 
 </div> <!-- /container -->
 

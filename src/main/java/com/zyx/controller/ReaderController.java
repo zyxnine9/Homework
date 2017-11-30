@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -88,10 +89,13 @@ public class ReaderController {
     /*
     转到借阅记录界面
      */
-    @RequestMapping(value = "/main/record",method = RequestMethod.POST)
-    public String toRecord(@ModelAttribute("reader")Reader reader,ModelMap modelMap){
+    @RequestMapping(value = "/main/record",method = RequestMethod.GET
+    )
+    public String toRecord(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session = request.getSession();
+        Reader reader= (Reader) session.getAttribute("reader");
         List<Library> records=libraryservice.selectByReaderId(reader.getId());
-        modelMap.addAttribute("records",records);
+        request.setAttribute("records",records);
         return "reader/record";
     }
 

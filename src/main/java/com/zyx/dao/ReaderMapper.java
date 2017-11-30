@@ -30,4 +30,6 @@ public interface ReaderMapper {
 
     int updateByPrimaryKey(Reader record);
 
+    Reader login(@Param("id")Integer id,@Param("password")String password);
+
 }
