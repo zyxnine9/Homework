@@ -4,6 +4,7 @@ import com.zyx.dao.LibraryMapper;
 import com.zyx.dao.ReaderMapper;
 import com.zyx.model.Reader;
 import com.zyx.model.ReaderExample;
+import com.zyx.service.Libraryservice;
 import com.zyx.service.Readerservice;
 import com.zyx.service.ReaderserviceImpl;
 import org.junit.Test;
@@ -19,6 +20,8 @@ public class Readtest extends BaseTest {
     LibraryMapper libraryMapper;
     @Autowired
     Readerservice readerservice;
+    @Autowired
+    Libraryservice libraryservice;
 
     @Test
     public void ii(){
@@ -58,4 +61,8 @@ public class Readtest extends BaseTest {
         readerMapper.updateByExampleSelective(reader,readerExample);
     }
 
+    @Test
+    public void boor(){
+
+    }
 }

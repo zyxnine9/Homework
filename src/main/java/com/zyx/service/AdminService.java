@@ -17,5 +17,9 @@ public interface AdminService {
 
     int addBook(Book book);
 
-    List<Library> showNoReturnReaders(Library library);
+    List<Library> showNoReturnReaders();
+
+    int deleteBook(String id);
+
+    int deleteReader(Integer id);
 }

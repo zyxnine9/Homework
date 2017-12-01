@@ -62,6 +62,7 @@ public class BookserviceImpl implements Bookservice {
     }
 
     public int updateBook(Book book) {
+        BookExample bookExample = new BookExample();
         BookExample.Criteria criteria=bookExample.createCriteria();
         criteria.andIdEqualTo(book.getId());
         return bookMapper.updateByExampleSelective(book,bookExample);
@@ -122,18 +123,22 @@ public class BookserviceImpl implements Bookservice {
                 library.setRtime(new Date());
                 library.setStatus(1);
                 library.setRecod(list.get(0).getRecod());
-                libraryMapper.updateByPrimaryKeySelective(library);
+                libraryMapper.updateByExampleSelective(library,libraryExample);
                 libraryMapper.updateBdays(library.getRecod());
                 bookMapper.increaseNumber(library.getBookId());
                 int days=libraryMapper.selectByPrimaryKey(library.getRecod()).getBdays();
                 if(days>30)
                     throw new SuccesException("借书时间超过30天,超期"
                     +(days-30)+"天");
-                return 1;
             }
-        } catch (SuccesException e){
+        } catch (BRexception e){
             throw e;
+        }catch (SuccesException e2){
+            throw e2;
+        }catch (RuntimeException e3){
+            throw e3;
         }
+        return 1;//代表成功还书
     }
 
 }

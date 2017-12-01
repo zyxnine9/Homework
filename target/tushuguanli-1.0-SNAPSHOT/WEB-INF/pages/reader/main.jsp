@@ -48,9 +48,11 @@
             </div>
             <div  class="page-header">
                 <h1>其他功能</h1>
+                <h6>${error}</h6>
             </div>
             <p>
-                <div class="row">
+
+            <div class="row">
             <div class="col-md-3">
         <a href="reader/main/borrow"
                    type="button" class="btn btn-lg btn-primary">借阅书籍</a>

@@ -13,5 +13,6 @@
 <body>
 <br>
 <h1>操作成功，但是${error}</h1>
+<a href="/returnMainPage">回到主页</a>
 </body>
 </html>

@@ -14,7 +14,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
 </head>
-<body style="background-color: #FFFFFF">
+<body style="background-image: url('backgrand.jpg')">
 <div class="container">
     <div class="row text-center " style="padding-top:100px;">
         <h1>图书管理系统</h1>

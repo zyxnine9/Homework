@@ -28,7 +28,6 @@ public class LibaTest extends BaseTest {
     }
     @Test
     public  void  ddd(){
-        libraryMapper.updateBdays(4);
     }
 
     @Test

@@ -23,8 +23,8 @@
 <div class="container">
     <h1>借阅书籍</h1>
     <hr/>
-
-    <form:form action="/reader/borrow/borrowbook" method="post" commandName="library" role="form">
+    <div class="container">
+    <form:form action="/reader/borrow/borrowbook" method="post" command="library" role="form">
         <div class="form-group">
             <label for="bookId">书号:</label>
             <input type="text" class="form-control" id="bookId" name="bookId" placeholder="请输入书号"
@@ -40,6 +40,8 @@
             <button type="submit" class="btn btn-sm btn-success">提交</button>
         </div>
     </form:form>
+        <a href="/returnMainPage">主页</a>
+</div>
 </div>
 
 

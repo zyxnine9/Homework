@@ -24,7 +24,7 @@
     <h1>归还书籍</h1>
     <hr/>
 
-    <form:form action="/reader/return/returnbook" method="post" commandName="library" role="form">
+    <form:form action="/reader/return/returnbook" method="post" command="library" role="form">
         <div class="form-group">
             <label for="bookId">书号:</label>
             <input type="text" class="form-control" id="bookId" name="bookId" placeholder="请输入书号"
@@ -40,6 +40,7 @@
             <button type="submit" class="btn btn-sm btn-success">提交</button>
         </div>
     </form:form>
+    <a href="/returnMainPage">主页</a>
 </div>
 
 

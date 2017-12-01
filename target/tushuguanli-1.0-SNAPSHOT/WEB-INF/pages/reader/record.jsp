@@ -53,6 +53,7 @@
             </c:forEach>
         </table>
     </c:if>
+    <a href="/returnMainPage">主页</a>
 </div>
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
