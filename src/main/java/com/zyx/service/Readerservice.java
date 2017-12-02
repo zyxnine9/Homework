@@ -21,4 +21,6 @@ public interface Readerservice {
     List<Reader> findReaders(Reader reader);
 
     Reader getUserByIdAndKey(Integer id,String key);
+
+    int addReader(Reader reader);
 }

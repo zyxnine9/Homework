@@ -29,7 +29,7 @@
     <h1>更新图书信息</h1>
     <hr/>
     <div class="container">
-        <form action="/admin/books/doUpdate" method="post" command="book" role="form">
+        <form action="${pageContext.request.contextPath}/admin/books/doUpdate" method="post" command="book" role="form">
             <div class="form-group">
                 <label for="id">书号:</label>
                 <input type="text" class="form-control" id="id" name="id" placeholder="请输入书号"
@@ -51,7 +51,7 @@
                        value="${book.time}" />
             </div>
             <div class="form-group">
-                <label for="number">出版时间:</label>
+                <label for="number">在馆数量</label>
                 <input type="text" class="form-control" id="number" name="number" placeholder="请输入学号"
                        value="${book.number}" readonly />
             </div>

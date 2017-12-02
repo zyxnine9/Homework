@@ -43,8 +43,10 @@
                 <h5>${result}</h5>
             </form>
 
-
             <div class="panel-body">
+                <h3>添加图书 <a href="${pageContext.request.contextPath}/admin/books/addBook" type="button" class="btn btn-primary btn-sm">添加</a></h3>
+
+
                 <table class="table table-hover">
                     <thead>
                     <tr>
@@ -63,9 +65,9 @@
                             <td>${sk.number}</td>
                             <td>${sk.total}</td>
                             <td>
-                                <a class="btn btn-sm btn-success" href="/admin/detail/${sk.id} " target="_blank">详细</a>
-                                <a class="btn btn-sm btn-warning" href="/admin/books/delete/${sk.id} " type="button">删除</a>
-                                <a class="btn btn-sm btn-danger" href="/admin/books/update/${sk.id} " target="_blank">更新</a>
+                                <a class="btn btn-sm btn-success" href="${pageContext.request.contextPath }/admin/detail/${sk.id} " target="_blank">详细</a>
+                                <a class="btn btn-sm btn-warning"  href="${pageContext.request.contextPath }/admin/books/${sk.id}/delete" target="_blank" >删除</a>
+                                <a class="btn btn-sm btn-danger" href="${pageContext.request.contextPath }/admin/books/${sk.id}/update " target="_blank">更新</a>
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -1,6 +1,8 @@
 package com.zyx.controller;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.zyx.exception.BRexception;
+import com.zyx.exception.DeleteException;
 import com.zyx.model.Book;
 import com.zyx.model.Reader;
 import com.zyx.service.AdminService;
@@ -72,42 +74,32 @@ public class AdminController {
     }
 
     //删除图书
-    @RequestMapping(value = "/admin/books/delete/{id}",method = RequestMethod.GET)
-    public void deleteBook(@PathVariable("id")String  id,ModelMap modelMap,
-                             HttpServletRequest request,HttpServletResponse response)
-            throws ServletException, IOException {
+    @RequestMapping(value = "/admin/books/{id}/delete",method = RequestMethod.GET)
+    public String  deleteBook(@PathVariable("id")String  id,ModelMap modelMap) {
         try {
             int i =adminService.deleteBook(id);
             if (i==1){
                 modelMap.addAttribute("result","删除图书成功，请回到书籍列表刷新");
-                HttpSession session = request.getSession();
-                String name = (String) session.getAttribute("bookName");
-                List<Book> books = bookservice.getByName(name);
-                modelMap.addAttribute("books",books);
-//                return "/admin/books";
-                request.getRequestDispatcher("/WEB-INF/pages/admin/books.jsp").forward(request
-                        ,response);
+//
+                return "forward:/admin/books";
             }
             else {
                 modelMap.addAttribute("result", "删除图书失败");
-                request.getRequestDispatcher("/WEB-INF/pages/admin/books.jsp").forward(request
-                        ,response);
+                return "forward:/admin/books";
             }
         }catch (BRexception e){
             modelMap.addAttribute("result","删除图书失败"+e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/pages/admin/books.jsp").forward(request
-                    ,response);
+            return "forward:/admin/books";
         }catch (RuntimeException e1){
             modelMap.addAttribute("result","删除图书失败"+e1.getMessage());
-            request.getRequestDispatcher("/WEB-INF/pages/admin/books.jsp").forward(request
-                    ,response);
+            return "forward:/admin/books";
         }
     }
 
     /*
     跳转到更新图书页面
      */
-    @RequestMapping(value = "/admin/books/update/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/books/{id}/update",method = RequestMethod.GET)
     public String  updateBook(@PathVariable("id")String id,ModelMap modelMap){
         Book book=bookservice.getById(id);
         modelMap.addAttribute("book",book);
@@ -121,6 +113,103 @@ public class AdminController {
         bookservice.updateBook(book);
         return "redirect:/admin/books";
     }
+    /*
+    添加图书页面
+     */
+    @RequestMapping(value = "/admin/books/addBook",method = RequestMethod.GET)
+    public String updateBook(){
+        return "/admin/add_book";
+    }
+    /*
+    添加图书
+     */
+    @RequestMapping(value = "/admin/reader/doAddBook",method = RequestMethod.POST)
+    public String doAddBook(@ModelAttribute("book")Book book,ModelMap modelMap){
+        int result =bookservice.addBook(book);
+        if (result==1)
+            modelMap.addAttribute("result","添加成功");
+        else
+            modelMap.addAttribute("result","添加失败");
+        return "redirect:/admin/books";
+    }
+
+
+
+    /*
+    获取读者列表
+     */
+    @RequestMapping(value = "/admin/readers",method = RequestMethod.GET)
+    public String getReaders(@ModelAttribute("readerName")String readerName,ModelMap modelMap){
+        Reader reader= new Reader();
+        reader.setName(readerName);
+        modelMap.addAttribute("readers",readerservice.findReaders(reader));
+        return "/admin/readers";
+    }
+    /*
+    获取读者详情
+     */
+    @RequestMapping(value = "/admin/readers/{id}/detail",method = RequestMethod.POST)
+    public String getReaderDetail(@PathVariable("id")Integer id,ModelMap modelMap){
+        Reader reader=readerservice.getById(id);
+        modelMap.addAttribute("reader",reader);
+        return "/admin/reader_detail";
+    }
+    @RequestMapping(value =" /admin/readers/{id}/delete",method = RequestMethod.DELETE)
+    public String deleteReader(@PathVariable("id")Integer id,ModelMap modelMap){
+        try {
+            int result = readerservice.deleteReader(id);
+            if (result == 1)
+                return "redirect:/admin/readers";
+            else {
+                throw new DeleteException("删除失败");
+            }
+        }catch (DeleteException e){
+            modelMap.addAttribute("error",e.getMessage());
+        }catch (RuntimeException e){
+            modelMap.addAttribute("error",e.getMessage());
+        }
+        return "/admin/readers";
+    }
+    /*
+    跳到更新读者
+     */
+    @RequestMapping(value = "/admin/readers/{id}/update",method = RequestMethod.GET)
+    public String updateReaders(@PathVariable("id")Integer id,ModelMap modelMap){
+        modelMap.addAttribute("reader",readerservice.getById(id));
+        return "/admin/update_reader";
+    }
+    /*
+    更新图书
+     */
+    @RequestMapping(value = "/admin/readers/doUpdate",method = RequestMethod.POST)
+    public String doUpdateReader(@ModelAttribute("reader")Reader reader,ModelMap modelMap){
+        int result =readerservice.updateReader(reader);
+        if (result ==1)
+            modelMap.addAttribute("result","更新成功,请回到列表刷新");
+        else
+            modelMap.addAttribute("result","更新失败");
+        return "redirect:/admin/readers";
+    }
+    /*
+    跳转到添加读者界面
+     */
+    @RequestMapping(value = "/admin/readers/addReader",method = RequestMethod.GET)
+    public String addReader(){
+        return "/admin/add_reader";
+    }
+    /*
+    添加读者
+     */
+    @RequestMapping(value = "/admin/readers/doAddReader",method = RequestMethod.POST)
+    public String doAddReader(@ModelAttribute("reader")Reader reader,ModelMap modelMap){
+        int result =readerservice.addReader(reader);
+        if (result==1)
+            modelMap.addAttribute("result","添加成功");
+        else
+            modelMap.addAttribute("result","添加失败");
+        return "redirect:/admin/readers";
+    }
+
 
 
     @RequestMapping("/returnMainPage")

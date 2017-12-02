@@ -1,4 +1,4 @@
-
+<%--@elvariable id="bookName" type="java.lang.String"--%>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -70,7 +70,7 @@
                         <div class="alert alert-warning">
 
                             <form name="firstFrom" action="/admin/readers" method="get">
-                                <input type="text" name="readerName" class="allInput" value="${name}" placeholder="输入书名搜索" />
+                                <input type="text" name="readerName" class="allInput" value="${readerName}" placeholder="输入书名搜索" />
                                 <br>
                                 <br>
 

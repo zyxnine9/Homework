@@ -21,39 +21,33 @@
 </head>
 <body>
 <div class="container">
-    <h1>SpringMVC 博客系统-用户管理</h1>
+    <h1>用户管理</h1>
     <hr/>
 
-    <h3>所有用户 <a href="/admin/users/add" type="button" class="btn btn-primary btn-sm">添加</a></h3>
-
-    <!-- 如果用户列表为空 -->
-    <c:if test="${empty userList}">
-        <div class="alert alert-warning" role="alert">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>User表为空，请<a href="/admin/users/add" type="button" class="btn btn-primary btn-sm">添加</a>
-        </div>
-    </c:if>
-
+    <h3>所有用户 <a href="${pageContext.request.contextPath}/admin/readers/addReader" type="button" class="btn btn-primary btn-sm">添加</a></h3>
     <!-- 如果用户列表非空 -->
-    <c:if test="${!empty userList}">
+    <c:if test="${!empty readers}">
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
-                <th>昵称</th>
+                <th>学号</th>
                 <th>姓名</th>
-                <th>密码</th>
+                <th>性别</th>
+                <th>年级</th>
+                <th>学院</th>
                 <th>操作</th>
             </tr>
 
-            <c:forEach items="${userList}" var="user">
+            <c:forEach items="${readers}" var="user">
                 <tr>
                     <td>${user.id}</td>
-                    <td>${user.nickname}</td>
-                    <td>${user.firstName} ${user.lastName}</td>
-                    <td>${user.password}</td>
+                    <td>${user.name}</td>
+                    <td>${user.sex}</td>
+                    <td>${user.grade} </td>
+                    <td>${user.dept}</td>
                     <td>
-                        <a href="/admin/users/show/${user.id}" type="button" class="btn btn-sm btn-success">详情</a>
-                        <a href="/admin/users/update/${user.id}" type="button" class="btn btn-sm btn-warning">修改</a>
-                        <a href="/admin/users/delete/${user.id}" type="button" class="btn btn-sm btn-danger">删除</a>
+                        <a href="/admin/reader/${user.id}/detail" type="button" class="btn btn-sm btn-success">详情</a>
+                        <a href="/admin/users/${user.id}/update" type="button" class="btn btn-sm btn-warning">修改</a>
+                        <a href="/admin/users/${user.id}/delete" type="button" class="btn btn-sm btn-danger">删除</a>
                     </td>
                 </tr>
             </c:forEach>

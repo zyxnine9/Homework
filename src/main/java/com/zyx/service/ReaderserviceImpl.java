@@ -70,5 +70,9 @@ public class ReaderserviceImpl implements Readerservice{
     public Reader getUserByIdAndKey(Integer id, String key) {
         return readerMapper.login(id,key);
     }
+
+    public int addReader(Reader reader) {
+        return readerMapper.insert(reader);
+    }
 }
 

@@ -53,8 +53,7 @@ public class BookserviceImpl implements Bookservice {
 
     public int addBook(Book book) {
         try{
-            bookMapper.insert(book);
-            return 1;
+            return bookMapper.insert(book);
         }catch(Exception e) {
             e.getMessage();
             return 0;
