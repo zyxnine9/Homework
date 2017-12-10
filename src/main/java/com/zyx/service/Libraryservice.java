@@ -9,6 +9,6 @@ public interface Libraryservice {
 
     List<Library> showAll();
 
-    int findNoReturnReader(Integer readerId);
+    List<Library> findNoReturnReader();
 
 }

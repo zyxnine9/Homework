@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -6,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>详情</title>
+    <title>超期读者</title>
 
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -20,36 +21,36 @@
 </head>
 <body>
 <div class="container">
-    <h1>读者详情</h1>
+    <h1>超期读者</h1>
     <hr/>
+    <c:if test="${empty readers}">
+        <br>
+        <h1>没有超期的读者</h1>
+    </c:if>
+    <!-- 如果用户列表非空 -->
+    <c:if test="${!empty readers}">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年级</th>
+                <th>学院</th>
 
-    <table class="table table-bordered table-striped">
-        <tr>
-            <th>学号</th>
-            <td>${reader.id}</td>
-        </tr>
-        <tr>
-            <th>姓名</th>
-            <td>${reader.name}</td>
-        </tr>
-        <tr>
-            <th>年级</th>
-            <td>${reader.grade}</td>
-        </tr>
-        <tr>
-            <th>学院</th>
-            <td>${reader.dept}</td>
-        </tr>
-        <tr>
-            <th>性别</th>
-            <td>${reader.sex}</td>
-        </tr>
-        <tr>
-            <th>密码</th>
-            <td>${reader.password}</td>
-        </tr>
+            </tr>
 
-    </table>
+            <c:forEach items="${readers}" var="reader">
+                <tr>
+                    <td>${reader.id}</td>
+                    <td>${reader.name}</td>
+                    <td>${reader.sex}</td>
+                    <td>${reader.grade} </td>
+                    <td>${reader.dept}</td>
+
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </div>
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->

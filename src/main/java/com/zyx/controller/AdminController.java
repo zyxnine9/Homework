@@ -4,6 +4,7 @@ import com.sun.org.apache.regexp.internal.RE;
 import com.zyx.exception.BRexception;
 import com.zyx.exception.DeleteException;
 import com.zyx.model.Book;
+import com.zyx.model.Library;
 import com.zyx.model.Reader;
 import com.zyx.service.AdminService;
 import com.zyx.service.Bookservice;
@@ -23,7 +24,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static com.zyx.Util.Utils.getDays;
 
 @Controller
 public class AdminController {
@@ -75,23 +81,21 @@ public class AdminController {
 
     //删除图书
     @RequestMapping(value = "/admin/books/{id}/delete",method = RequestMethod.GET)
-    public String  deleteBook(@PathVariable("id")String  id,ModelMap modelMap) {
+    public String  deleteBook(@PathVariable("id")String  id) {
         try {
             int i =adminService.deleteBook(id);
             if (i==1){
-                modelMap.addAttribute("result","删除图书成功，请回到书籍列表刷新");
-//
-                return "forward:/admin/books";
+                return "redirect:/admin/books";
             }
             else {
-                modelMap.addAttribute("result", "删除图书失败");
+
                 return "forward:/admin/books";
             }
         }catch (BRexception e){
-            modelMap.addAttribute("result","删除图书失败"+e.getMessage());
+
             return "forward:/admin/books";
         }catch (RuntimeException e1){
-            modelMap.addAttribute("result","删除图书失败"+e1.getMessage());
+
             return "forward:/admin/books";
         }
     }
@@ -133,6 +137,9 @@ public class AdminController {
         return "redirect:/admin/books";
     }
 
+/*
+*********************************************************************************************
+ */
 
 
     /*
@@ -148,13 +155,16 @@ public class AdminController {
     /*
     获取读者详情
      */
-    @RequestMapping(value = "/admin/readers/{id}/detail",method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/readers/{id}/detail",method = RequestMethod.GET)
     public String getReaderDetail(@PathVariable("id")Integer id,ModelMap modelMap){
         Reader reader=readerservice.getById(id);
         modelMap.addAttribute("reader",reader);
         return "/admin/reader_detail";
     }
-    @RequestMapping(value =" /admin/readers/{id}/delete",method = RequestMethod.DELETE)
+    /*
+     *删除一个读者
+     */
+    @RequestMapping(value =" /admin/readers/{id}/delete",method = RequestMethod.GET)
     public String deleteReader(@PathVariable("id")Integer id,ModelMap modelMap){
         try {
             int result = readerservice.deleteReader(id);
@@ -179,7 +189,7 @@ public class AdminController {
         return "/admin/update_reader";
     }
     /*
-    更新图书
+    更新读者
      */
     @RequestMapping(value = "/admin/readers/doUpdate",method = RequestMethod.POST)
     public String doUpdateReader(@ModelAttribute("reader")Reader reader,ModelMap modelMap){
@@ -201,8 +211,8 @@ public class AdminController {
     添加读者
      */
     @RequestMapping(value = "/admin/readers/doAddReader",method = RequestMethod.POST)
-    public String doAddReader(@ModelAttribute("reader")Reader reader,ModelMap modelMap){
-        int result =readerservice.addReader(reader);
+    public String doAddReader(@ModelAttribute("newReader")Reader newReader,ModelMap modelMap){
+        int result =readerservice.addReader(newReader);
         if (result==1)
             modelMap.addAttribute("result","添加成功");
         else
@@ -210,7 +220,48 @@ public class AdminController {
         return "redirect:/admin/readers";
     }
 
+    /*
+     *************************************************************
+     */
+    /*
+     *查看未还的图书
+     */
+    @RequestMapping(value = "/admin/showNoReturnBook" ,method =RequestMethod.GET )
+    public String showNoReturn(ModelMap modelMap){
+        //拿出所有没还书的记录
+        List<Library> records = libraryservice.findNoReturnReader();
+        modelMap.addAttribute("records",records);
+        List<Book > books = new ArrayList<Book>();
+        for (Library record : records) {
+            books.add(bookservice.getById(record.getBookId()));
+        }
+        modelMap.addAttribute("books",books);
+        return "/admin/no_return";
+    }
+    /*
+     * 查看借书超期的 读者
+     */
+    @RequestMapping(value = "/admin/showOutOfDate",method = RequestMethod.GET)
+    public String showOutOfDate(ModelMap modelMap) throws ParseException {
+//        modelMap.addAttribute("readers",);
+        List<Library > libraries = libraryservice.findNoReturnReader();
+        List<Reader> readers = new ArrayList<Reader>();
+        for (Library record:libraries) {
+            if (getDays(new Date(), record.getBtime()) > 30)
+                readers.add(readerservice.getById(record.getReaderId()));
+        }
+        modelMap.addAttribute("readers",readers);
+        return "/admin/outofdate";
+    }
 
+//    @RequestMapping(value = "/admin/addReader",method = RequestMethod.POST)
+//    public void addReader(@ModelAttribute("reader")Reader reader){
+//        int result =readerservice.addReader(reader);
+//    }
+//    @RequestMapping(value = "/admin/addBook",method = RequestMethod.POST)
+//    public void addBook(@ModelAttribute("book")Book book){
+//        int result = bookservice.addBook(book);
+//    }
 
     @RequestMapping("/returnMainPage")
     public String  returnMain(){

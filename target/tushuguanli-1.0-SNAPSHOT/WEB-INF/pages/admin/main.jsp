@@ -69,7 +69,7 @@
                         </div>
                         <div class="alert alert-warning">
 
-                            <form name="firstFrom" action="/admin/readers" method="get">
+                            <form name="firstFrom" action="/admin/readers" command="reader" method="get">
                                 <input type="text" name="readerName" class="allInput" value="${readerName}" placeholder="输入书名搜索" />
                                 <br>
                                 <br>
@@ -92,7 +92,7 @@
                             <ul class="plan">
 
                             </ul>
-                            <a href="#" class="btn btn-success ">查看</a>
+                            <a href="/admin/showNoReturnBook" class="btn btn-success ">查看</a>
                         </div>
 
                     </div>
@@ -107,7 +107,7 @@
                         <ul class="plan">
 
                             </ul>
-                            <a href="#" class="btn btn-info ">查看</a>
+                            <a href="/admin/showOutOfDate" class="btn btn-info ">查看</a>
                         </div>
 
                     </div>

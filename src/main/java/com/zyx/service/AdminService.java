@@ -22,4 +22,5 @@ public interface AdminService {
     int deleteBook(String id);
 
     int deleteReader(Integer id);
+
 }

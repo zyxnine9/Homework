@@ -19,35 +19,35 @@
 </head>
 <body>
 <div class="container">
-    <h1>更新图书信息</h1>
+    <h1>更新读者信息</h1>
     <hr/>
     <div class="container">
-        <form action="${pageContext.request.contextPath}/admin/readers/doUpdate" method="post" command="book" role="form">
+        <form action="${pageContext.request.contextPath}/admin/readers/doUpdate" method="post" command="reader" role="form">
             <div class="form-group">
                 <label for="id">学号:</label>
-                <input type="text" class="form-control" id="id" name="id" placeholder="请输入书号"
+                <input type="text" class="form-control" id="id" name="id" placeholder="请输入学号"
                        value="${reader.id}"  readonly />
             </div>
             <div class="form-group">
                 <label for="name">姓名:</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="请输入学号"
+                <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名"
                        value="${reader.name}" />
             </div>
             <div class="form-group">
                 <label for="grade">年级:</label>
-                <input type="text" class="form-control" id="grade" name="grade" placeholder="请输入书号"
+                <input type="text" class="form-control" id="grade" name="grade" placeholder="请输入年级"
                        value="${reader.grade}" />
             </div>
             <div class="form-group">
                 <label for="dept">学院:</label>
-                <input type="text" class="form-control" id="dept" name="dept" placeholder="请输入学号"
+                <input type="text" class="form-control" id="dept" name="dept" placeholder="请输入学院"
                        value="${reader.dept}" />
             </div>
             <div class="form-group">
                 <label for="sex">性别:</label>
-                <input type="text" class="form-control" id="sex" name="sex" placeholder="请输入学号"
-                       value="${reader.sex}" readonly />
-            
+                <input type="text" class="form-control" id="sex" name="sex" placeholder="请输入性别"
+                       value="${reader.sex}"  />
+            <br>
             <div class="form-group">
                 <button type="submit" class="btn btn-sm btn-success">提交</button>
             </div>

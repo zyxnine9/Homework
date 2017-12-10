@@ -25,13 +25,12 @@ public class LibraryserviceImpl implements Libraryservice {
         return libraryMapper.selectByExample(libraryExample);
     }
 
-    public int findNoReturnReader(Integer readerId) {
+    public List<Library> findNoReturnReader() {
         LibraryExample libraryExample = new LibraryExample();
         LibraryExample.Criteria criteria =libraryExample.createCriteria();
         //已经还书的记录
         criteria.andStatusEqualTo(0);
-        criteria.andReaderIdEqualTo(readerId);
-        return libraryMapper.selectByExample(libraryExample).size();
+        return libraryMapper.selectByExample(libraryExample);
     }
 
 

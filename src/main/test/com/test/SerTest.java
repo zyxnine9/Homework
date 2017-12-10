@@ -12,7 +12,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import static com.zyx.Util.Utils.getDays;
 
 public class SerTest extends BaseTest {
     @Autowired
@@ -46,7 +51,15 @@ public class SerTest extends BaseTest {
 
 
     @Test
-    public void S(){
+    public void S() {
 //        readerMapper.insert(reader);
+        try {
+            SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = sfd.parse("2017-11-10");
+            Date date2 = sfd.parse("2017-11-13");
+            System.out.println(getDays(date2,date1));
+        }catch (ParseException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

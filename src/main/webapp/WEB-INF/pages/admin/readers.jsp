@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>SpringMVC 用户管理</title>
+    <title>读者</title>
 
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -24,7 +24,7 @@
     <h1>用户管理</h1>
     <hr/>
 
-    <h3>所有用户 <a href="${pageContext.request.contextPath}/admin/readers/addReader" type="button" class="btn btn-primary btn-sm">添加</a></h3>
+    <h3>所有用户 <a href="/admin/readers/addReader" type="button" class="btn btn-primary btn-sm">添加</a></h3>
     <!-- 如果用户列表非空 -->
     <c:if test="${!empty readers}">
         <table class="table table-bordered table-striped">
@@ -37,17 +37,17 @@
                 <th>操作</th>
             </tr>
 
-            <c:forEach items="${readers}" var="user">
+            <c:forEach items="${readers}" var="reader">
                 <tr>
-                    <td>${user.id}</td>
-                    <td>${user.name}</td>
-                    <td>${user.sex}</td>
-                    <td>${user.grade} </td>
-                    <td>${user.dept}</td>
+                    <td>${reader.id}</td>
+                    <td>${reader.name}</td>
+                    <td>${reader.sex}</td>
+                    <td>${reader.grade} </td>
+                    <td>${reader.dept}</td>
                     <td>
-                        <a href="/admin/reader/${user.id}/detail" type="button" class="btn btn-sm btn-success">详情</a>
-                        <a href="/admin/users/${user.id}/update" type="button" class="btn btn-sm btn-warning">修改</a>
-                        <a href="/admin/users/${user.id}/delete" type="button" class="btn btn-sm btn-danger">删除</a>
+                        <a href="/admin/readers/${reader.id}/detail" type="button" class="btn btn-sm btn-success" target="_blank">详情</a>
+                        <a href="/admin/readers/${reader.id}/update" type="button" class="btn btn-sm btn-warning" target="_blank">修改</a>
+                        <a href="/admin/readers/${reader.id}/delete" type="button" class="btn btn-sm btn-danger">删除</a>
                     </td>
                 </tr>
             </c:forEach>
