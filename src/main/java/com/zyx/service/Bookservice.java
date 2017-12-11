@@ -23,4 +23,5 @@ public interface Bookservice {
 
     int returnBook(Library library);
 
+    List<Book> getSameByBook(Book book);
 }

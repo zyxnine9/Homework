@@ -10,6 +10,7 @@ import com.zyx.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -138,6 +139,20 @@ public class BookserviceImpl implements Bookservice {
             throw e3;
         }
         return 1;//代表成功还书
+    }
+
+    public List<Book> getSameByBook(Book book) {
+        BookExample bookExample = new BookExample();
+        BookExample.Criteria criteria = bookExample.createCriteria();
+        if (book.getId()!=null&&book.getId().length()!=0)
+            criteria.andIdEqualTo(book.getId());
+        if (book.getName()!=null&&book.getName().length()!=0)
+            criteria.andNameEqualTo(book.getName());
+        if (book.getWriter()!=null&&book.getWriter().length()!=0)
+            criteria.andWriterEqualTo(book.getWriter());
+        if (book.getPress()!=null&&book.getPress().length()!=0)
+            criteria.andPressEqualTo(book.getPress());
+        return bookMapper.selectByExample(bookExample);
     }
 
 }

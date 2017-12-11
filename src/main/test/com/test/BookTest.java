@@ -2,6 +2,7 @@ package com.test;
 
 import com.zyx.dao.BookMapper;
 import com.zyx.model.Book;
+import com.zyx.model.BookExample;
 import com.zyx.model.Library;
 import com.zyx.service.Bookservice;
 import org.junit.Test;
@@ -20,10 +21,14 @@ public class BookTest extends BaseTest {
         System.out.println("i is "+i);
     }
     @Test
-    public void samebook(){
+    public void zzd(){
         Book book =new Book();
-        book.setId("TP393-1");
-        bookMapper.insert(book);
+        book.setWriter("王菲");
+        List<Book > books =bookservice.getSameByBook(book);
+        for (Book b:
+             books) {
+            System.out.println(b);
+        }
     }
 
     @Test

@@ -61,12 +61,12 @@ public class AdminController {
     管理员获取图书列表
      */
     @RequestMapping(value = "/admin/books",method = RequestMethod.GET)
-    public void findByName(HttpServletRequest req, HttpServletResponse resp)
+    public void findByName(HttpServletRequest req, HttpServletResponse resp,
+                           @ModelAttribute("book")Book book)
             throws ServletException, IOException {
         String name=req.getParameter("bookName");
         //把查询信息暂存到session中
-        req.setAttribute("bookName",name);
-        req.setAttribute("books",bookservice.getByName(name));
+        req.setAttribute("books",bookservice.getSameByBook(book));
         req.getRequestDispatcher("/WEB-INF/pages/admin/books.jsp").forward(req,resp);
     }
 
@@ -146,9 +146,7 @@ public class AdminController {
     获取读者列表
      */
     @RequestMapping(value = "/admin/readers",method = RequestMethod.GET)
-    public String getReaders(@ModelAttribute("readerName")String readerName,ModelMap modelMap){
-        Reader reader= new Reader();
-        reader.setName(readerName);
+    public String getReaders(@ModelAttribute("reader")Reader reader,ModelMap modelMap){
         modelMap.addAttribute("readers",readerservice.findReaders(reader));
         return "/admin/readers";
     }
@@ -265,6 +263,6 @@ public class AdminController {
 
     @RequestMapping("/returnMainPage")
     public String  returnMain(){
-        return "reader/main";
+        return "redirect:reader/main";
     }
 }

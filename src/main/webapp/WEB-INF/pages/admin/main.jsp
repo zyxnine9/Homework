@@ -49,8 +49,15 @@
                             <h4>书籍操作</h4>
                         </div>
                         <div class="alert alert-danger">
-                            <form name="firstFrom" action="${pageContext.request.contextPath}/admin/books" method="get">
-                                <input type="text" name="bookName" class="allInput" value="${bookName}" placeholder="输入书名搜索" />
+                            <form name="firstFrom" action="${pageContext.request.contextPath}/admin/books" command="book" method="get">
+                                <input type="text" name="id"
+                                       class="allInput"  placeholder="输入书号搜索" />
+                                <input type="text" name="name"
+                                       class="allInput"  placeholder="输入书名搜索" />
+                                <input type="text" name="writer"
+                                       class="allInput"  placeholder="输入作者搜索" />
+                                <input type="text" name="press"
+                                       class="allInput"  placeholder="输入出版社搜索" />
                                 <br>
                                 <br>
 
@@ -70,7 +77,18 @@
                         <div class="alert alert-warning">
 
                             <form name="firstFrom" action="/admin/readers" command="reader" method="get">
-                                <input type="text" name="readerName" class="allInput" value="${readerName}" placeholder="输入书名搜索" />
+                                <input type="text"  id="id"
+                                       name="id" class="allInput"
+                                       onkeyup="value=value.replace(/\D/g,'')" placeholder="输入学号" />
+                                <input type="text"  id="name"
+                                       name="name" class="allInput"  placeholder="输入姓名" />
+                                <input type="text"  id="dept"
+                                       name="dept" class="allInput"  placeholder="输入学院" />
+                                <input type="text"  id="grade"
+                                       name="grade" class="allInput"  placeholder="输入年级"
+                                       onkeyup="value=value.replace(/\D/g,'')"/>
+                                <input type="text"  id="sex"
+                                       name="sex" class="allInput"  placeholder="输入性别" />
                                 <br>
                                 <br>
 
