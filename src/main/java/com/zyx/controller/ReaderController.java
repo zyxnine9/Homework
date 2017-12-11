@@ -91,12 +91,13 @@ public class ReaderController {
      */
     @RequestMapping(value = "/main/record",method = RequestMethod.GET
     )
-    public String toRecord(HttpServletRequest request,HttpServletResponse response){
+    public void toRecord(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Reader reader= (Reader) session.getAttribute("reader");
         List<Library> records=libraryservice.selectByReaderId(reader.getId());
         request.setAttribute("records",records);
-        return "reader/record";
+        request.getRequestDispatcher("/WEB-INF/pages/reader/record.jsp")
+                .forward(request,response);
     }
 
 }

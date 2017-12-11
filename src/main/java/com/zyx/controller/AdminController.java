@@ -85,7 +85,7 @@ public class AdminController {
         try {
             int i =adminService.deleteBook(id);
             if (i==1){
-                return "redirect:/admin/books";
+                return "/admin/books";
             }
             else {
 
@@ -115,7 +115,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/books/doUpdate",method = RequestMethod.POST)
     public String doUpdateBook(@ModelAttribute("book")Book book){
         bookservice.updateBook(book);
-        return "redirect:/admin/books";
+        return "/admin/books";
     }
     /*
     添加图书页面
@@ -134,7 +134,7 @@ public class AdminController {
             modelMap.addAttribute("result","添加成功");
         else
             modelMap.addAttribute("result","添加失败");
-        return "redirect:/admin/books";
+        return "/admin/books";
     }
 
 /*
@@ -167,7 +167,7 @@ public class AdminController {
         try {
             int result = readerservice.deleteReader(id);
             if (result == 1)
-                return "redirect:/admin/readers";
+                return "/admin/readers";
             else {
                 throw new DeleteException("删除失败");
             }
@@ -196,7 +196,7 @@ public class AdminController {
             modelMap.addAttribute("result","更新成功,请回到列表刷新");
         else
             modelMap.addAttribute("result","更新失败");
-        return "redirect:/admin/readers";
+        return "/admin/readers";
     }
     /*
     跳转到添加读者界面
@@ -215,7 +215,7 @@ public class AdminController {
             modelMap.addAttribute("result","添加成功");
         else
             modelMap.addAttribute("result","添加失败");
-        return "redirect:/admin/readers";
+        return "/admin/readers";
     }
 
     /*
@@ -263,6 +263,6 @@ public class AdminController {
 
     @RequestMapping("/returnMainPage")
     public String  returnMain(){
-        return "redirect:reader/main";
+        return "reader/main";
     }
 }
